@@ -42,4 +42,4 @@ Set these GitHub repository secrets:
 ## Learn More
 
 - [testRigor Documentation](https://testrigor.com/docs/)
-- [testRigor CLI Reference](https://testrigor.com/docs/cli/)
+- [testRigor CLI Reference](https://testrigor.com/command-line)
