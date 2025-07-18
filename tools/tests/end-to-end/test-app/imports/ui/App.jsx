@@ -1,9 +1,8 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState } from 'react';
 import { useTracker, useSubscribe } from "meteor/react-meteor-data";
 import { TasksCollection } from "/imports/api/TasksCollection";
 import { Task } from "./Task";
 import { TaskForm } from "./TaskForm";
-import { LoginForm } from './LoginForm';
 
 export const App = () => {
   const [hideCompleted, setHideCompleted] = useState(false);
@@ -38,33 +37,22 @@ export const App = () => {
         </div>
       </header>
       <div className="main">
-        {user ? (
-          <Fragment>
-            <div className="user" onClick={logout}>
-              {user.username} 🚪
-            </div>
-            <TaskForm />
-
-            <div className="filter">
-              <button onClick={() => setHideCompleted(!hideCompleted)}>
-                {hideCompleted ? 'Show All' : 'Hide Completed'}
-              </button>
-            </div>
-
-            <ul className="tasks">
-              {tasks.map(task => (
-                <Task
-                  key={task._id}
-                  task={task}
-                  onCheckboxClick={handleToggleChecked}
-                  onDeleteClick={handleDelete}
-                />
-              ))}
-            </ul>
-          </Fragment>
-        ) : (
-          <LoginForm />
-        )}
+        <TaskForm />
+        <div className="filter">
+          <button onClick={() => setHideCompleted(!hideCompleted)}>
+            {hideCompleted ? 'Show All' : 'Hide Completed'}
+          </button>
+        </div>
+        <ul className="tasks">
+          {tasks.map((task) => (
+            <Task
+              key={task._id}
+              task={task}
+              onCheckboxClick={handleToggleChecked}
+              onDeleteClick={handleDelete}
+            />
+          ))}
+        </ul>
       </div>
     </div>
   );
