@@ -4,8 +4,11 @@ import { TasksCollection } from "/imports/api/TasksCollection";
 import { Task } from "./Task";
 import { TaskForm } from "./TaskForm";
 import { LoginForm } from './LoginForm';
+import { Meteor } from "meteor/meteor";
 
 export const App = () => {
+  const user = useTracker(() => Meteor.user());
+  const logout = () => Meteor.logout();
   const [hideCompleted, setHideCompleted] = useState(false);
    const hideCompletedFilter = { isChecked: { $ne: true } };
   const handleToggleChecked = ({ _id, isChecked }) =>
@@ -24,6 +27,8 @@ export const App = () => {
   const pendingTasksTitle = `${
     pendingTasksCount ? ` (${pendingTasksCount})` : ''
   }`;
+   const handleEditTask = (_id, newText) =>
+    Meteor.callAsync("tasks.updateText", { _id, text: newText });
 
   if (isLoading()) {
     return <div>Loading...</div>;
@@ -58,6 +63,7 @@ export const App = () => {
                   task={task}
                   onCheckboxClick={handleToggleChecked}
                   onDeleteClick={handleDelete}
+                  onEdit={handleEditTask}
                 />
               ))}
             </ul>
