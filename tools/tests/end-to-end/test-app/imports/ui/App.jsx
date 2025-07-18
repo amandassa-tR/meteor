@@ -6,10 +6,8 @@ import { TaskForm } from "./TaskForm";
 import { LoginForm } from './LoginForm';
 
 export const App = () => {
-  const logout = () => Meteor.logout();
-  const user = useTracker(() => Meteor.user());
   const [hideCompleted, setHideCompleted] = useState(false);
-  const hideCompletedFilter = { isChecked: { $ne: true } };
+   const hideCompletedFilter = { isChecked: { $ne: true } };
   const handleToggleChecked = ({ _id, isChecked }) =>
     Meteor.callAsync("tasks.toggleChecked", { _id, isChecked });
   const isLoading = useSubscribe("tasks");
@@ -20,11 +18,12 @@ export const App = () => {
   );
   const handleDelete = ({ _id }) =>
     Meteor.callAsync("tasks.delete", { _id });
-  const pendingTasksCount = useTracker(() =>
+   const pendingTasksCount = useTracker(() =>
     TasksCollection.find(hideCompletedFilter).count()
   );
-  const pendingTasksTitle = `${pendingTasksCount ? ` (${pendingTasksCount})` : ''
-    }`;
+  const pendingTasksTitle = `${
+    pendingTasksCount ? ` (${pendingTasksCount})` : ''
+  }`;
 
   if (isLoading()) {
     return <div>Loading...</div>;

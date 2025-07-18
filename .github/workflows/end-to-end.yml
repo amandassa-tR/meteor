@@ -1,0 +1,74 @@
+name: End-to-End Testing
+
+on:
+  push:
+    branches: [ end-to-end-testing, main, devel ]
+  pull_request:
+    branches: [ main, devel ]
+  workflow_dispatch:
+
+jobs:
+  e2e-tests:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install Meteor
+      run: |
+        curl https://install.meteor.com/ | sh
+        echo "$HOME/.meteor" >> $GITHUB_PATH
+        
+    - name: Install testrigor CLI
+      run: |
+        npm install -g testrigor-cli
+        
+    - name: Install test app dependencies
+      working-directory: ./tools/tests/end-to-end/test-app
+      run: |
+        meteor npm install
+        
+    - name: Start Meteor app in background
+      working-directory: ./tools/tests/end-to-end/test-app
+      run: |
+        meteor &
+        echo $! > meteor.pid
+        
+    - name: Wait for app to be ready
+      run: |
+        echo "Waiting for Meteor app to start..."
+        timeout 300 bash -c 'until curl -f http://localhost:3000; do sleep 5; done'
+        echo "App is ready!"
+        
+    - name: Run testrigor tests
+      env:
+        CI_TOKEN: ${{ secrets.CI_TOKEN }}
+        SUITE_ID: ${{ vars.SUITE_ID }}
+      run: |
+        testrigor test-suite run "$SUITE_ID" --token "$CI_TOKEN" --localhost --url http://localhost:3000
+        
+    - name: Stop Meteor app
+      working-directory: ./tools/tests/end-to-end/test-app
+      if: always()
+      run: |
+        if [ -f meteor.pid ]; then
+          kill $(cat meteor.pid) || true
+          rm meteor.pid
+        fi
+        
+    - name: Upload test results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: testrigor-results
+        path: |
+          testrigor-results/
+          *.log
+        retention-days: 30
