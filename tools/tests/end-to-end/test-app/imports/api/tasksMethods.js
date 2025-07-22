@@ -13,9 +13,10 @@ Meteor.methods({
    "tasks.delete"({ _id }) {
     return TasksCollection.removeAsync(_id);
   },
-   'tasks.updateText'({ _id, text }) {
-  check(_id, String);
-  check(text, String);
-  return TasksCollection.updateAsync(_id, { $set: { text } });
+   'tasks.updateText'({ _id, newText }) {
+  //check(_id, String);
+  //check(text, String);
+  return TasksCollection.updateAsync(_id, { $set: { text: newText } });
+
 },
 });

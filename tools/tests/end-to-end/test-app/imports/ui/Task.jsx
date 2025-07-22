@@ -40,7 +40,6 @@ export const Task = ({ task, onCheckboxClick, onDeleteClick, onEdit }) => {
         type="checkbox"
         checked={!!task.isChecked}
         onClick={() => onCheckboxClick(task)}
-        readOnly
       />
       {isEditing ? (
         <input

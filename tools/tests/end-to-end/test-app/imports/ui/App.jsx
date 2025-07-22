@@ -28,7 +28,7 @@ export const App = () => {
     pendingTasksCount ? ` (${pendingTasksCount})` : ''
   }`;
    const handleEditTask = (_id, newText) =>
-    Meteor.callAsync("tasks.updateText", { _id, text: newText });
+    Meteor.callAsync("tasks.updateText", { _id, newText });
 
   if (isLoading()) {
     return <div>Loading...</div>;
