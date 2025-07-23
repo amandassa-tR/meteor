@@ -1,0 +1,4 @@
+click button "Enter the To-Do App"
+login
+click "meteorite"
+check that page contains button "Log In"

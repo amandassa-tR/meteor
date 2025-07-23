@@ -1,0 +1,6 @@
+click button "Enter the To-Do App"
+login
+save value "Added Task" as "newTask"
+enter saved value "newTask" into input "Type to add new tasks"
+click button "Add Task"
+check that page contains saved value "newTask"

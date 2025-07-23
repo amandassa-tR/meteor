@@ -1,0 +1,3 @@
+check that url is string with parameters "${homePrefix}/home"
+click button "Enter the To-Do App"
+check that url is string with parameters "${homePrefix}/app"

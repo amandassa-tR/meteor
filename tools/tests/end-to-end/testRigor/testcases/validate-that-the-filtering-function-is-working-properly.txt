@@ -1,0 +1,12 @@
+click button "Enter the To-do App"
+//login
+enter "meteorite" into "Username"
+enter "password" into "Password"
+click button "Log In"
+enter "First Task" into "Filter tasks by name"
+check that page does not contain "Fourth Task"
+check that page contains "First Task"
+//enter "Sixth" into input "filter-bar"
+enter "Sixth Task" into "Filter tasks by name"
+check that page does not contain "First Task"
+check that page contains "Sixth Task"

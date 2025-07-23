@@ -1,0 +1,9 @@
+click button "Enter the To-Do App"
+login
+grab value from "app-bar" and save as "pageTitle"
+extract value by regex "\d+" from saved value "pageTitle" and save it as "taskCount"
+enter "New task" into input "Type to add new tasks"
+click button "Add Task"
+check that "app-bar" contains expression "${taskCount} + 1"
+click button on the right of "New task"
+check that "app-bar" contains saved value "taskCount"

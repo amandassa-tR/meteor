@@ -1,0 +1,10 @@
+click button "Enter the To-Do App"
+login
+save value "Edit This" as "newTask"
+enter saved value "newTask" into input "Type to add new tasks"
+click button "Add Task"
+double click "Edit This"
+enter "Edited Task" into input "Edit This"
+enter enter
+check that page does not contain "Edit This"
+check that page contains "Edited Task"

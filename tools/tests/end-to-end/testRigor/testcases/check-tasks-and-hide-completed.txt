@@ -1,0 +1,10 @@
+click button "Enter the To-Do App"
+login
+enter "1" into checkbox on the left of "First Task"
+enter "1" into checkbox on the left of "Sixth Task"
+click button "Hide completed"
+check that page does not contain "First Task"
+check that page does not contain "Sixth Task"
+click button "Show all"
+check that page contains "First Task"
+check that page contains "Sixth Task"

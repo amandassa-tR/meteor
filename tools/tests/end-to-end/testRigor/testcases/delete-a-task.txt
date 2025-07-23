@@ -1,0 +1,7 @@
+click button "Enter the To-Do App"
+login
+save value "Delete This" as "taskToDelete"
+enter saved value "taskToDelete" into input "Type to add new tasks"
+click button "Add Task"
+click button on the right of saved value "taskToDelete"
+check that page does not contain saved value "taskToDelete"
